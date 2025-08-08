@@ -1,7 +1,16 @@
-import type { NextConfig } from "next";
+const withNextIntl = require('next-intl/plugin')();
 
-const nextConfig: NextConfig = {
-  /* config options here */
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    images: {
+        formats: ['image/avif', 'image/webp'],
+    },
+    i18n: {
+        locales: ['en', 'fr'],
+        defaultLocale: 'en',
+    },
 };
 
-export default nextConfig;
+module.exports = withNextIntl(nextConfig);
+
+
