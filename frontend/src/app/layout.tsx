@@ -4,6 +4,7 @@ import "./globals.css";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
+import PageTransition from "@/components/page-transition";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,8 +27,10 @@ export default function RootLayout({
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <ThemeToggle />
-            {children}
+            <PageTransition>
+              <ThemeToggle />
+              {children}
+            </PageTransition>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
