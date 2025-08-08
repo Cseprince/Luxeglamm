@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { inter, playfairDisplay } from "@/lib/fonts";
 import "./globals.css";
+import { NextIntlClientProvider, useMessages } from "next-intl";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -11,21 +12,26 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params: { locale },
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
+  const messages = useMessages();
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={`${inter.variable} ${playfairDisplay.variable} font-sans`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <ThemeToggle />
-          {children}
-        </ThemeProvider>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <ThemeToggle />
+            {children}
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
 }
-
 
